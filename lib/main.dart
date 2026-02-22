@@ -9,7 +9,7 @@ void main() {
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
         builder: DevicePreview.appBuilder,
-        home: MyHomePage(title: 'Expense Tracker'),
+        home: MyHomePage(title: 'This is the appbar'),
       ),
     ),
   );
