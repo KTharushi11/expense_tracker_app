@@ -15,9 +15,14 @@ void main() {
   );
 }
 
-class ExpenseApp extends StatelessWidget {
+class ExpenseApp extends StatefulWidget {
   const ExpenseApp({super.key});
 
+  @override
+  State<ExpenseApp> createState() => _ExpenseAppState();
+}
+
+class _ExpenseAppState extends State<ExpenseApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,9 +34,16 @@ class ExpenseApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Map<String, dynamic>> expenses = [];
+  double totalBalance = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,19 +64,20 @@ class HomeScreen extends StatelessWidget {
               color: Colors.blue,
               borderRadius: BorderRadius.circular(15),
             ),
-            child: const Column(
+            child: Column(
               children: [
-                Text(
+                const Text(
                   "Total Balance",
                   style: TextStyle(color: Colors.white70, fontSize: 18),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
-                  "Rs. 0.00",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  "Rs. ${totalBalance.toStringAsFixed(2)}",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
