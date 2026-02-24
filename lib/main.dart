@@ -92,10 +92,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 20),
 
-          const Text(
-            "No expenses added yet",
-            style: TextStyle(fontSize: 18),
-          ),
+          expenses.isEmpty
+          ? const Text(
+              "No expenses added yet",
+              style: TextStyle(fontSize: 18),
+            )
+          : Expanded(
+              child: ListView.builder(
+                itemCount: expenses.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(expenses[index]['title']),
+                    trailing: Text(
+                      "Rs. ${expenses[index]['amount']}",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  );
+                },
+              ),
+            ),
         ],
       ),
 
@@ -117,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: const InputDecoration(labelText: "Title"),
                     ),
                     TextField(
+                      controller: amountController,
                       decoration: const InputDecoration(labelText: "Amount"),
                       keyboardType: TextInputType.number,
                     ),
@@ -127,6 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       String title = titleController.text;
                       double amount = double.tryParse(amountController.text)?? 0;
+                      addExpense(title, amount);
                       Navigator.pop(context);
                     },
                     child: const Text("Add"),
