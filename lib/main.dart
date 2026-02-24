@@ -44,6 +44,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> expenses = [];
   double totalBalance = 0.0;
+
+  void addExpense(String title, double amount) {
+    setState(() {
+      expenses.add({"title": title, "amount": amount});
+      totalBalance += amount;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +100,42 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              TextEditingController titleController = TextEditingController() ;
+              TextEditingController amountController = TextEditingController();
+
+              return AlertDialog(
+                title: const Text("Add Expense"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      decoration: const InputDecoration(labelText: "Title"),
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(labelText: "Amount"),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      String title = titleController.text;
+                      double amount = double.tryParse(amountController.text)?? 0;
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Add"),
+                  ),
+                ],
+              );
+            },
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );
