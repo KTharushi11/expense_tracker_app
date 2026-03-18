@@ -5,7 +5,12 @@ void main() {
   runApp(
     DevicePreview(
       enabled: true,
-      builder: (context) => const ExpenseApp(),
+      builder: (context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        useInheritedMediaQuery: true,
+        builder: DevicePreview.appBuilder,
+        home: const ExpenseApp(),
+      ),
     ),
   );
 }
@@ -15,13 +20,10 @@ class ExpenseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true, // ✅ KEEP THIS HERE
-      builder: DevicePreview.appBuilder,
-      locale: DevicePreview.locale(context),
       title: 'Expense Tracker',
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
