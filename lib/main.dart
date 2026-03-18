@@ -115,75 +115,74 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 10),
 
-          expenses.isEmpty
-              ? Expanded(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.account_balance_wallet_outlined,
-                          size: 80,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(height: 15),
+          expenses.isEmpty? Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.account_balance_wallet_outlined,
+                      size: 80,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      "No expenses yet",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      "Add your first expense",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : Expanded(
+            child: ListView.builder(
+              itemCount: expenses.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 5),
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      expenses[index]['title'],
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
                         Text(
-                          "No expenses yet",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey,
-                          ),
+                          "Rs. ${expenses[index]['amount'].toStringAsFixed(2)}",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          "Add your first expense",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
+                        const SizedBox(width: 10),
+                        IconButton(
+                          icon: const Icon(Icons.delete,
+                              color: Colors.red),
+                          onPressed: () => deleteExpense(index),
                         ),
                       ],
                     ),
                   ),
-                )
-              : Expanded(
-                  child: ListView.builder(
-                    itemCount: expenses.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: ListTile(
-                          title: Text(
-                            expenses[index]['title'],
-                            style: const TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "Rs. ${expenses[index]['amount'].toStringAsFixed(2)}",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(width: 10),
-                              IconButton(
-                                icon: const Icon(Icons.delete,
-                                    color: Colors.red),
-                                onPressed: () => deleteExpense(index),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                );
+              },
+            ),
+          ),
         ],
       ),
 
@@ -242,4 +241,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
