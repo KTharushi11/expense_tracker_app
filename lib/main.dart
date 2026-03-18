@@ -7,7 +7,6 @@ void main() {
       enabled: true,
       builder: (context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        useInheritedMediaQuery: true,
         builder: DevicePreview.appBuilder,
         home: const ExpenseApp(),
       ),
