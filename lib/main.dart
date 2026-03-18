@@ -141,8 +141,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      String title = titleController.text;
-                      double amount = double.tryParse(amountController.text)?? 0;
+                      String title = titleController.text.trim();
+                      double amount =
+                          double.tryParse(amountController.text) ?? 0;
+
+                      if (title.isEmpty || amount <= 0) {
+                        return; 
+                      }
+
                       addExpense(title, amount);
                       Navigator.pop(context);
                     },
