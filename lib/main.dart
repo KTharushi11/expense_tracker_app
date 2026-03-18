@@ -56,16 +56,32 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // 🔥 Attractive AppBar
       appBar: AppBar(
-        title: const Text("Expense Tracker"),
+        elevation: 0,
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 95, 171, 213),
+        title: const Text(
+          "Expense Tracker",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 95, 171, 213),
+                Color.fromARGB(255, 60, 130, 180),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
 
       body: Column(
         children: [
 
-          // Balance Card
+          // 💰 Balance Card
           Container(
             margin: const EdgeInsets.all(15),
             padding: const EdgeInsets.all(20),
@@ -73,6 +89,13 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 95, 171, 213),
               borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 8,
+                  offset: Offset(0, 4),
+                )
+              ],
             ),
             child: Column(
               children: [
@@ -95,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 10),
 
-          // Empty UI or List
+          // 📭 Empty UI or 📋 List
           expenses.isEmpty
               ? Expanded(
                   child: Center(
@@ -135,8 +158,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Card(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         child: ListTile(
-                          title: Text(expenses[index]['title']),
+                          title: Text(
+                            expenses[index]['title'],
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -161,6 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
 
+      // ➕ Add Button
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 95, 171, 213),
         onPressed: () {
@@ -173,6 +204,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextEditingController();
 
               return AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
                 title: const Text("Add Expense"),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -214,3 +247,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
