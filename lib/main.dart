@@ -5,11 +5,7 @@ void main() {
   runApp(
     DevicePreview(
       enabled: true,
-      builder: (context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        builder: DevicePreview.appBuilder,
-        home: const ExpenseApp(),
-      ),
+      builder: (context) => const ExpenseApp(),
     ),
   );
 }
@@ -19,10 +15,13 @@ class ExpenseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      useInheritedMediaQuery: true, // ✅ KEEP THIS HERE
+      builder: DevicePreview.appBuilder,
+      locale: DevicePreview.locale(context),
       title: 'Expense Tracker',
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
@@ -55,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 🔥 Attractive AppBar
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -79,8 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: Column(
         children: [
-
-          // 💰 Balance Card
           Container(
             margin: const EdgeInsets.all(15),
             padding: const EdgeInsets.all(20),
@@ -117,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 10),
 
-          // 📭 Empty UI or 📋 List
           expenses.isEmpty
               ? Expanded(
                   child: Center(
@@ -190,7 +185,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
 
-      // ➕ Add Button
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 95, 171, 213),
         onPressed: () {
