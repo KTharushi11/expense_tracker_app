@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
-
 void main() {
   runApp(
     DevicePreview(
@@ -14,7 +13,6 @@ void main() {
     ),
   );
 }
-
 class ExpenseApp extends StatelessWidget {
   const ExpenseApp({super.key});
 
@@ -27,14 +25,12 @@ class ExpenseApp extends StatelessWidget {
     );
   }
 }
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> expenses = [];
   double totalBalance = 0.0;
